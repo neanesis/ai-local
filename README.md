@@ -62,7 +62,7 @@ MealLoop repo
 ## Structure du dépôt
 
 ```
-mealloop-ai-local/
+ai-local/
 ├── README.md                   ← ce fichier
 ├── phase1/
 │   ├── README.md               ← guide d'installation Phase 1
