@@ -1,5 +1,5 @@
 {
-  "_comment": "Configuration Continue pour LM Studio — MealLoop AI Local",
+  "_comment": "Configuration Continue pour LM Studio — AI Local",
   "_instructions": [
     "1. Copier ce fichier vers %USERPROFILE%\\.continue\\config.json",
     "2. Remplacer REMPLACER_PAR_ID_MODELE_LMSTUDIO par l'ID exact retourné par l'API LM Studio",
@@ -80,9 +80,9 @@
 
   "customCommands": [
     {
-      "name": "mealloop-context",
+      "name": "project-context",
       "prompt": "Read the file memory/project-context.md and use it as context for all subsequent responses. Confirm you have read it.",
-      "description": "Load MealLoop project context into chat"
+      "description": "Load project context into chat"
     },
     {
       "name": "review",

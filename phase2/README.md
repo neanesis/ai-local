@@ -83,22 +83,21 @@ Ouvrir dans un navigateur : http://localhost:3000
 
 ## Étape 4 — Configuration Open WebUI
 
-### 4.1 Ajouter le contexte MealLoop comme System Prompt
+### 4.1 Ajouter le contexte projet comme System Prompt
 
 Dans Open WebUI > **Settings > Interface > System Prompt** :
 
 ```
-You are an expert Flutter and Supabase developer assistant working on the MealLoop project.
-MealLoop is a meal planning application built with Flutter and Supabase.
+You are an expert software development assistant.
 
 Always:
-- Follow Flutter/Dart best practices
-- Use the conventions established in the project
+- Follow the conventions established in the project
 - Prefer minimal, maintainable solutions over complex architectures
 - Provide code changes with English comments explaining modifications
+- Ask for clarification when the task or context is ambiguous
 ```
 
-### 4.2 Créer un Workspace MealLoop (optionnel)
+### 4.2 Créer un Workspace projet (optionnel)
 
 Dans Open WebUI, les "Workspaces" permettent de sauvegarder le contexte entre sessions.
 

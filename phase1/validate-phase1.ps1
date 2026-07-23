@@ -3,8 +3,8 @@
 # Usage : .\phase1\validate-phase1.ps1
 
 param(
-    # Chemin optionnel vers le repo MealLoop (pour vérifier la structure mémoire)
-    [string]$MealLoopPath = ""
+    # Chemin optionnel vers votre repo projet (pour vérifier la structure mémoire)
+    [string]$ProjectPath = ""
 )
 
 # --- Configuration ---
@@ -37,7 +37,7 @@ function Write-Section([string]$msg) {
 # ===================================================================
 Write-Host ""
 Write-Host "================================================" -ForegroundColor Cyan
-Write-Host "  VALIDATION PHASE 1 — MealLoop AI Local" -ForegroundColor Cyan
+Write-Host "  VALIDATION PHASE 1 — AI Local" -ForegroundColor Cyan
 Write-Host "================================================" -ForegroundColor Cyan
 
 # ===================================================================
@@ -133,11 +133,11 @@ if (-not $aiderCmd) {
     }
 }
 
-# 3.3 Vérifier le fichier .aider.conf.yml si MealLoopPath fourni
-if ($MealLoopPath -ne "") {
-    $aiderConf = Join-Path $MealLoopPath ".aider.conf.yml"
+# 3.3 Vérifier le fichier .aider.conf.yml si ProjectPath fourni
+if ($ProjectPath -ne "") {
+    $aiderConf = Join-Path $ProjectPath ".aider.conf.yml"
     if (Test-Path $aiderConf) {
-        Write-Pass "Fichier .aider.conf.yml présent dans MealLoop : $aiderConf"
+        Write-Pass "Fichier .aider.conf.yml présent dans le projet : $aiderConf"
 
         $aiderContent = Get-Content $aiderConf -Raw
         if ($aiderContent -match "REMPLACER_PAR_ID_MODELE_LMSTUDIO") {
@@ -152,18 +152,18 @@ if ($MealLoopPath -ne "") {
             Write-Warn ".aider.conf.yml : 'localhost:1234' non trouvé. Vérifier openai-api-base."
         }
     } else {
-        Write-Warn "Fichier .aider.conf.yml absent dans $MealLoopPath. Copier depuis phase1\aider\.aider.conf.yml"
+        Write-Warn "Fichier .aider.conf.yml absent dans $ProjectPath. Copier depuis phase1\aider\.aider.conf.yml"
     }
 } else {
-    Write-Warn "Paramètre -MealLoopPath non fourni. Vérification Aider config ignorée."
-    Write-Host "         Relancer avec : .\validate-phase1.ps1 -MealLoopPath 'C:\chemin\MealLoop'" -ForegroundColor DarkGray
+    Write-Warn "Paramètre -ProjectPath non fourni. Vérification Aider config ignorée."
+    Write-Host "         Relancer avec : .\validate-phase1.ps1 -ProjectPath 'C:\chemin\votre-projet'" -ForegroundColor DarkGray
 }
 
 # ===================================================================
-Write-Section "4. Structure Mémoire MealLoop"
+Write-Section "4. Structure Mémoire Projet"
 
-if ($MealLoopPath -ne "") {
-    $memoryPath = Join-Path $MealLoopPath "memory"
+if ($ProjectPath -ne "") {
+    $memoryPath = Join-Path $ProjectPath "memory"
     $expectedFiles = @(
         "project-context.md",
         "architecture-decisions.md",
@@ -189,10 +189,10 @@ if ($MealLoopPath -ne "") {
             }
         }
     } else {
-        Write-Warn "Dossier memory absent dans MealLoop. Créer et copier les templates depuis memory\"
+        Write-Warn "Dossier memory absent dans votre projet. Créer et copier les templates depuis memory\"
     }
 } else {
-    Write-Warn "Paramètre -MealLoopPath non fourni. Vérification structure mémoire ignorée."
+    Write-Warn "Paramètre -ProjectPath non fourni. Vérification structure mémoire ignorée."
 }
 
 # ===================================================================

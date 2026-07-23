@@ -1,6 +1,7 @@
-# MealLoop — Journal des Sessions de Travail
+# AI Local — Journal des Sessions de Travail
 
 > Une entrée par session. Garder les 10 dernières ici, archiver le reste.
+> **Archive** : déplacer les entrées excédentaires dans `memory/session-log-archive.md` (jamais lire en entier — Grep uniquement).
 > Charger ce fichier en début de session pour reprendre là où tu t'es arrêté.
 
 ---
@@ -17,7 +18,7 @@
 - Décision : stack minimale LM Studio + Continue + Aider + Open WebUI
 - Création complète du projet `ai-local` avec 19 fichiers
 - Structure en 3 phases progressives avec scripts de validation PowerShell
-- Création des templates de mémoire MealLoop
+- Création des templates de mémoire projet
 - Initialisation Git + push sur GitHub : https://github.com/neanesis/ai-local
 - Installation de GitHub CLI (gh) via winget
 
@@ -36,16 +37,15 @@
 - `phase3/docker-compose.yml` — OpenHands
 - `phase3/.env.example`
 - `phase3/validate-phase3.ps1`
-- `memory/` — 5 templates de mémoire MealLoop
+- `memory/` — 5 templates de mémoire projet
 
 ### Ce qui reste à faire (prochaine session)
 
 - Ouvrir le dossier `ai-local` dans VS Code sur la machine cible
 - Suivre `phase1/README.md` étape par étape
 - Télécharger les modèles dans LM Studio (Qwen2.5-Coder-14B-Instruct Q4_K_M en priorité)
-- Remplir les templates `memory/` avec le contexte réel de MealLoop
+- Remplir les templates `memory/` avec le contexte de votre projet cible
 - Lancer `phase1/validate-phase1.ps1` pour valider
-- Copier `memory/` vers le repo MealLoop
 
 ### Décisions techniques importantes
 
@@ -53,12 +53,12 @@
 - LM Studio sur Windows natif (pas Docker) pour accès GPU direct
 - Open WebUI en Docker avec `host.docker.internal` pour joindre LM Studio
 - Modèle principal recommandé : Qwen2.5-Coder-14B-Instruct Q4_K_M (~9-10 Go VRAM)
-- Mémoire projet : fichiers Markdown versionnés dans le repo MealLoop (pas de base vectorielle)
+- Mémoire projet : fichiers Markdown versionnés dans le repo (pas de base vectorielle)
 
 ### Contexte important pour la prochaine session
 
-> Ce repo `ai-local` est l'environnement AI local pour remplacer Claude Code quand
-> les quotas sont épuisés. Il cible un développeur Flutter/Supabase solo (projet MealLoop).
+> Ce repo `ai-local` est un environnement AI local autonome.
+> Il peut être adapté à n'importe quel projet de développement.
 > Machine cible : RTX 5080 16 Go VRAM, Ryzen 9 5900X, 32 Go RAM, Windows 11.
 > LM Studio est déjà installé sur la machine cible.
 

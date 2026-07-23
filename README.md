@@ -1,16 +1,16 @@
-# AI Local — Remplacement local de Claude Code
+# AI Local — Environnement de développement assisté par LLM local
 
 ## Objectif
 
-Reproduire l'expérience Claude Code / Claude Cowork en local lorsque les quotas sont épuisés,
-en s'appuyant sur des modèles LLM locaux adaptés au matériel disponible (RTX 5080, 16 Go VRAM).
+Mettre en place un environnement de développement assisté par des modèles LLM locaux,
+en s'appuyant sur le matériel disponible (RTX 5080, 16 Go VRAM).
 
 Capacités couvertes :
 - Compréhension d'un dépôt complet
 - Navigation dans le code et analyse d'architecture
 - Génération de code et refactoring multi-fichiers
 - Exécution de commandes orientée patch
-- Mémoire persistante du projet MealLoop
+- Mémoire persistante de votre projet
 - Interface dans VS Code et interface web
 
 ## Architecture cible
@@ -25,7 +25,7 @@ Docker
 ├── Open WebUI         → interface web pour sessions longues (Phase 2)
 └── OpenHands          → agent autonome, optionnel (Phase 3)
 
-MealLoop repo
+Votre projet
 └── memory/            → mémoire persistante projet, versionnée avec le code
 ```
 
@@ -82,10 +82,10 @@ ai-local/
 │   └── validate-phase3.ps1     ← script de validation automatisée
 └── memory/
     ├── README.md               ← guide du système de mémoire
-    ├── project-context.md      ← contexte permanent MealLoop
+    ├── project-context.md      ← contexte permanent du projet
     ├── architecture-decisions.md ← journal des décisions techniques
     ├── session-log.md          ← journal des sessions de travail
-    └── conventions.md          ← conventions de code MealLoop
+    └── conventions.md          ← conventions de code du projet
 ```
 
 ## Démarrage rapide

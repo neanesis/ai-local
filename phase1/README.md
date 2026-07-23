@@ -1,4 +1,4 @@
-# Phase 1 — LM Studio + Continue + Aider + Mémoire MealLoop
+# Phase 1 — LM Studio + Continue + Aider + Mémoire Projet
 
 ## Vue d'ensemble
 
@@ -6,7 +6,7 @@ Cette phase installe le noyau de l'environnement de développement local :
 - **LM Studio** : moteur LLM, expose une API OpenAI-compatible
 - **Continue** : assistant dans VS Code (chat + autocomplétion)
 - **Aider** : agent CLI pour refactoring et patches multi-fichiers
-- **Memory** : structure de mémoire persistante dans le repo MealLoop
+- **Memory** : structure de mémoire persistante versionnée dans votre projet
 
 Durée estimée : 30 à 60 minutes selon la vitesse de téléchargement des modèles.
 
@@ -156,20 +156,20 @@ aider --version
 > pip install aider-chat
 > ```
 
-### 3.3 Déployer la configuration dans MealLoop
+### 3.3 Déployer la configuration dans votre projet
 
-Copier le fichier de config Aider à la racine de ton repo MealLoop :
+Copier le fichier de config Aider à la racine de votre repo :
 
 ```powershell
-# Adapter le chemin vers ton repo MealLoop
-$mealloopPath = "C:\chemin\vers\MealLoop"
+# Adapter le chemin vers votre projet
+$projectPath = "C:\chemin\vers\votre-projet"
 
-Copy-Item -Path "phase1\aider\.aider.conf.yml" -Destination "$mealloopPath\.aider.conf.yml" -Force
+Copy-Item -Path "phase1\aider\.aider.conf.yml" -Destination "$projectPath\.aider.conf.yml" -Force
 ```
 
 ### 3.4 Ajuster le nom du modèle dans .aider.conf.yml
 
-Ouvrir `$mealloopPath\.aider.conf.yml` et remplacer `REMPLACER_PAR_ID_MODELE_LMSTUDIO`
+Ouvrir `$projectPath\.aider.conf.yml` et remplacer `REMPLACER_PAR_ID_MODELE_LMSTUDIO`
 par l'ID exact relevé à l'étape 1.5.
 
 Format attendu par Aider : `openai/<model-id>`  
@@ -178,7 +178,7 @@ Exemple : `openai/qwen2.5-coder-14b-instruct`
 ### 3.5 Vérifier Aider
 
 ```powershell
-cd $mealloopPath
+cd $projectPath
 
 # Test de connexion : doit afficher la liste des fichiers et un prompt >
 aider --no-auto-commits --message "Hello, list the main files in this project"
@@ -186,31 +186,31 @@ aider --no-auto-commits --message "Hello, list the main files in this project"
 
 Si Aider répond sans erreur de connexion, il est opérationnel.
 
-### 3.6 Utilisation typique Aider pour MealLoop
+### 3.6 Utilisation typique Aider
 
 ```powershell
 # Ouvrir une session sur des fichiers spécifiques
-aider lib/screens/meal_plan_screen.dart lib/services/meal_service.dart
+aider src/module.py src/service.py
 
 # Laisser Aider découvrir le contexte automatiquement
 aider --auto-test
 
 # Mode lecture seule pour analyse sans modification
-aider --read-only lib/models/
+aider --read-only src/models/
 ```
 
 ---
 
-## Étape 4 — Structure Mémoire MealLoop
+## Étape 4 — Structure Mémoire Projet
 
-La mémoire projet est un ensemble de fichiers Markdown versionnés dans ton repo MealLoop.
+La mémoire projet est un ensemble de fichiers Markdown versionnés dans votre repo.
 Ils servent de contexte persistant fourni aux modèles entre les sessions.
 
-### 4.1 Créer le dossier memory dans MealLoop
+### 4.1 Créer le dossier memory dans votre projet
 
 ```powershell
-$mealloopPath = "C:\chemin\vers\MealLoop"
-$memoryPath = "$mealloopPath\memory"
+$projectPath = "C:\chemin\vers\votre-projet"
+$memoryPath = "$projectPath\memory"
 
 New-Item -ItemType Directory -Force -Path $memoryPath
 ```
@@ -225,23 +225,23 @@ Copy-Item -Path "memory\*" -Destination $memoryPath -Recurse -Force
 
 Ouvrir chaque fichier et remplir les sections marquées `[À COMPLÉTER]` :
 
-| Fichier                      | Contenu                                          | Priorité    |
-|------------------------------|--------------------------------------------------|-------------|
-| `project-context.md`         | Architecture MealLoop, stack, Supabase schema   | **Critique** |
-| `conventions.md`             | Conventions de nommage, patterns Flutter utilisés | **Critique** |
-| `architecture-decisions.md`  | Décisions techniques importantes déjà prises     | Importante  |
-| `session-log.md`             | Remplir à chaque session de travail              | Continue    |
+| Fichier                      | Contenu                                        | Priorité    |
+|------------------------------|------------------------------------------------|-------------|
+| `project-context.md`         | Stack, architecture, schéma de données        | **Critique** |
+| `conventions.md`             | Conventions de nommage, patterns utilisés     | **Critique** |
+| `architecture-decisions.md`  | Décisions techniques importantes              | Importante  |
+| `session-log.md`             | Remplir à chaque session de travail           | Continue    |
 
 ### 4.4 Utiliser la mémoire avec Continue
 
 ```
 # Dans le chat Continue, référencer la mémoire :
 @file memory/project-context.md
-Continue the implementation of the meal planning feature based on this context.
+Continue the implementation of the current feature based on this context.
 
 # Ou utiliser @codebase pour tout indexer
 @codebase
-What is the current state of the meal planning feature?
+What is the current state of the project?
 ```
 
 ### 4.5 Utiliser la mémoire avec Aider
@@ -249,7 +249,7 @@ What is the current state of the meal planning feature?
 ```powershell
 # Aider lit automatiquement .aider.conf.yml qui peut inclure des fichiers de contexte
 # Ou ajouter manuellement en session :
-aider lib/screens/meal_plan_screen.dart /read-only memory/project-context.md
+aider src/module.py /read-only memory/project-context.md
 ```
 
 ---
@@ -266,7 +266,7 @@ Le script vérifie automatiquement :
 - LM Studio API active et modèle chargé
 - Extension Continue installée dans VS Code
 - Aider disponible dans le PATH
-- Structure mémoire présente dans MealLoop
+- Structure mémoire présente dans votre projet
 
 **Ne pas passer à la Phase 2 tant que tous les checks ne sont pas verts.**
 

@@ -86,14 +86,14 @@ Avec 16 Go VRAM :
 
 ---
 
-## Utilisation typique avec MealLoop
+## Utilisation typique
 
 ```
 # Dans OpenHands, formuler une tâche autonome claire :
 
-"Read the file lib/services/meal_service.dart and write unit tests
-for all public methods. Place tests in test/services/meal_service_test.dart.
-Follow the existing test patterns in the test/ folder."
+"Read the file src/services/my_service.py and write unit tests
+for all public methods. Place tests in tests/test_my_service.py.
+Follow the existing test patterns in the tests/ folder."
 ```
 
 **Conseils pour de meilleurs résultats :**

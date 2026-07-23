@@ -1,73 +1,47 @@
-# MealLoop — Contexte Projet
+# Projet — Contexte
 
 > Charger ce fichier en début de session pour donner le contexte au modèle.
 
 ## Identité du projet
 
-> NOTE : Ce fichier est un TEMPLATE à copier dans le repo MealLoop et à remplir.
-> Le repo `ai-local` lui-même est l'environnement AI local (voir session-log.md).
+> NOTE : Ce fichier est un TEMPLATE à remplir pour votre projet cible.
+> Le repo `ai-local` est l'environnement AI local (voir session-log.md).
 
-**Nom** : MealLoop  
-**Type** : Application mobile de planification de repas  
-**Plateforme** : Flutter (iOS + Android)  
-**Backend** : Supabase  
-**Développeur** : Solo developer (neanesis)  
+**Nom** : [À COMPLÉTER]  
+**Type** : [À COMPLÉTER — ex: application web, API, outil CLI, bibliothèque]  
+**Plateforme / Cible** : [À COMPLÉTER — ex: web, mobile, desktop, serveur]  
+**Développeur** : [À COMPLÉTER]
 
 ## Stack technique
 
-| Composant      | Technologie            | Notes                          |
-|----------------|------------------------|--------------------------------|
-| Frontend       | Flutter (Dart)         | [À COMPLÉTER : version Flutter] |
-| Backend        | Supabase               | PostgreSQL + Auth + Storage    |
-| State management | [À COMPLÉTER]        | ex: Riverpod, Bloc, Provider   |
-| Navigation     | [À COMPLÉTER]          | ex: GoRouter, go_router        |
-| HTTP / API     | [À COMPLÉTER]          | ex: supabase_flutter, dio      |
-| Tests          | [À COMPLÉTER]          | ex: flutter_test, mocktail     |
+| Composant       | Technologie    | Notes            |
+|-----------------|----------------|------------------|
+| Langage         | [À COMPLÉTER]  |                  |
+| Framework       | [À COMPLÉTER]  |                  |
+| Backend / BDD   | [À COMPLÉTER]  |                  |
+| Tests           | [À COMPLÉTER]  |                  |
+| Outillage build | [À COMPLÉTER]  |                  |
 
-## Architecture Flutter
+## Structure du projet
 
 ```
-lib/
-├── main.dart
-├── app/                    # [À COMPLÉTER : décrire la structure]
-├── features/               # ou screens/ ou pages/
-│   ├── [feature_1]/
-│   └── [feature_2]/
-├── shared/                 # ou common/ ou core/
-│   ├── models/
-│   ├── services/
-│   └── widgets/
-└── [À COMPLÉTER]
+[À COMPLÉTER — arborescence principale du repo]
 ```
 
 ## Fonctionnalités principales
 
 [À COMPLÉTER — liste des features existantes et leur état]
 
-Exemple :
-- [ ] Planification hebdomadaire de repas
-- [ ] Génération de liste de courses
-- [ ] Bibliothèque de recettes
-- [ ] Authentification utilisateur
+- [ ] [Feature 1]
+- [ ] [Feature 2]
 
-## Schéma Supabase (tables principales)
+## Schéma de données (tables / modèles principaux)
 
-[À COMPLÉTER — description des tables et relations clés]
-
-Exemple :
-```sql
--- Table principale
-users (id, email, created_at)
-
--- Tables métier
-meal_plans (id, user_id, week_start, created_at)
-meals (id, name, category, prep_time, ingredients)
-meal_plan_items (id, meal_plan_id, meal_id, day, meal_type)
-```
+[À COMPLÉTER]
 
 ## Règles métier importantes
 
-[À COMPLÉTER — règles de gestion spécifiques à MealLoop]
+[À COMPLÉTER]
 
 ## Intégrations externes
 

@@ -1,8 +1,8 @@
-# Système de Mémoire MealLoop — Guide
+# Système de Mémoire Projet — Guide
 
 ## Objectif
 
-Ce dossier contient la **mémoire persistante** du projet MealLoop.
+Ce dossier contient la **mémoire persistante** de votre projet.
 Il sert de contexte fourni aux modèles LLM locaux (Continue, Aider, Open WebUI)
 pour qu'ils comprennent le projet sans que tu aies à tout réexpliquer à chaque session.
 
@@ -12,7 +12,7 @@ pour qu'ils comprennent le projet sans que tu aies à tout réexpliquer à chaqu
 Tu commences une session → tu charges le contexte → le modèle comprend immédiatement
 ```
 
-Contrairement à Claude qui garde l'historique entre sessions, les modèles locaux
+Contrairement aux services cloud qui gardent l'historique entre sessions, les modèles locaux
 démarrent "vides". Ces fichiers compensent cette limitation.
 
 ## Fichiers et leur rôle
@@ -23,6 +23,28 @@ démarrent "vides". Ces fichiers compensent cette limitation.
 | `conventions.md`             | Rarement             | Nommage, patterns, règles de code          |
 | `architecture-decisions.md`  | À chaque décision    | Log des décisions techniques importantes   |
 | `session-log.md`             | À chaque session     | Ce qui a été fait, ce qui reste à faire    |
+
+## Règles d'économie de tokens
+
+### Classification des fichiers
+
+| Classe | Fichier | Règle |
+|--------|---------|-------|
+| **A** — chargé à chaque session | `session-log.md`, `project-context.md` | Charger systématiquement, garder < 30 Ko au total |
+| **B** — chargé à la demande | `conventions.md`, `architecture-decisions.md` | Charger uniquement si la tâche le nécessite |
+| **C** — archive, jamais lu en entier | `session-log-archive.md` | **Grep ciblé uniquement**, puis `read_file` sur la plage trouvée |
+
+### Règles de lecture
+
+- **Jamais** de lecture intégrale des fichiers Class C (archives).
+- Pour les gros fichiers source (> 800 lignes) : Grep du symbole d'abord, puis lecture ciblée.
+- **Contrôle périodique** : si `session-log.md` dépasse ~10 entrées → déplacer les anciennes vers `session-log-archive.md`.
+- Viser < 30 Ko au total pour les fichiers Class A :
+  ```powershell
+  Get-ChildItem memory -File | Where-Object Name -in 'session-log.md','project-context.md' | Measure-Object Length -Sum
+  ```
+
+---
 
 ## Comment charger le contexte
 
@@ -51,8 +73,8 @@ automatiquement `project-context.md` et `conventions.md` à chaque session.
 
 ### Open WebUI
 
-Coller le contenu de `project-context.md` dans le System Prompt de ton workspace
-MealLoop, ou le copier-coller en début de conversation.
+Coller le contenu de `project-context.md` dans le System Prompt de votre workspace
+Open WebUI, ou le copier-coller en début de conversation.
 
 ## Discipline de mise à jour
 

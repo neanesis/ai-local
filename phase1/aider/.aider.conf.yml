@@ -1,5 +1,5 @@
-# Aider configuration — MealLoop AI Local
-# Copier ce fichier à la racine du repo MealLoop : MealLoop/.aider.conf.yml
+# Aider configuration — AI Local
+# Copier ce fichier à la racine de votre repo projet
 #
 # IMPORTANT : Remplacer REMPLACER_PAR_ID_MODELE_LMSTUDIO par l'ID exact du modèle
 # Commande pour trouver l'ID :
@@ -42,7 +42,7 @@ stream: true
 chat-history-file: .aider.chat.history.md
 
 # === Contexte ===
-# Fichiers lus en mode lecture seule à chaque session (contexte MealLoop)
+# Fichiers lus en mode lecture seule à chaque session (contexte projet)
 # Décommenter après avoir rempli les templates mémoire
 # read:
 #   - memory/project-context.md
