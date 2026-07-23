@@ -31,9 +31,12 @@ réel que les Phases 1 et 2 ne couvrent pas.
 
 ## Prérequis
 
-- Phase 2 entièrement validée (`.\phase2\validate-phase2.ps1` sans erreurs)
+- Phase 1 entièrement validée
+- Phase 2 **optionnelle** (peut coexister avec Phase 3)
 - Docker Desktop en cours d'exécution
 - LM Studio en cours d'exécution avec un modèle chargé
+
+> **Note sur les ports** : OpenHands sur 3002, Open WebUI (Phase 2) sur 3001. Peut être démarré sur une plage différente avec le script `find-available-port.ps1` si conflits.
 
 ---
 
@@ -54,18 +57,37 @@ Ouvrir `.env` et configurer :
 
 ## Étape 2 — Démarrer OpenHands
 
+### Option A : Démarrage automatique avec détection de port (recommandé)
+
 ```powershell
 cd phase3
 
-# Démarrer OpenHands
-docker compose up -d
+# Le script trouvera le premier port disponible à partir de 3002
+# et mettra à jour docker-compose.yml automatiquement
+.\find-available-port.ps1
 
 # Vérifier le démarrage (peut prendre 1-2 minutes)
 docker compose ps
 docker compose logs --tail 30
 ```
 
-OpenHands sera accessible sur : http://localhost:3001
+Si une autre plage de ports est préférée :
+```powershell
+.\find-available-port.ps1 -StartPort 4000 -Range 10
+```
+
+### Option B : Démarrage manuel
+
+```powershell
+cd phase3
+docker compose up -d
+docker compose ps
+docker compose logs --tail 30
+```
+
+> **Note** : Le port par défaut est 3002 (configure manuellement dans docker-compose.yml si besoin).
+
+OpenHands sera accessible sur l'URL affichée par le script ou votre port configuré.
 
 ---
 

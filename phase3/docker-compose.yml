@@ -1,17 +1,17 @@
 services:
   openhands:
-    image: docker.all-hands.dev/all-hands-ai/openhands:latest
+    image: ghcr.io/all-hands-ai/openhands:latest
     container_name: openhands
     ports:
-      # Port 3001 pour éviter le conflit avec Open WebUI sur 3000
-      - "3001:3000"
+      # Port 3002 (Phase 2 Open WebUI est sur 3001)
+      - "3002:3000"
     environment:
       # Connexion LM Studio depuis Docker
       - LLM_BASE_URL=http://host.docker.internal:1234/v1
       - LLM_API_KEY=${OPENAI_API_KEY}
       - LLM_MODEL=${LLM_MODEL}
       # Sandbox Docker-in-Docker
-      - SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:latest
+      - SANDBOX_RUNTIME_CONTAINER_IMAGE=ghcr.io/all-hands-ai/runtime:latest
       - SANDBOX_USER_ID=1000
       # Répertoire de travail persistant
       - WORKSPACE_BASE=/opt/workspace
@@ -28,3 +28,5 @@ services:
 volumes:
   openhands-workspace:
     name: openhands-workspace
+
+
