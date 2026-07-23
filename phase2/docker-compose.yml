@@ -4,7 +4,7 @@ services:
     container_name: open-webui
     ports:
       # Port accessible sur Windows : http://localhost:3000
-      - "3000:8080"
+      - "3001:8080"
     environment:
       # Connexion vers LM Studio sur Windows (host.docker.internal = localhost de Windows)
       - OPENAI_API_BASE_URL=http://host.docker.internal:1234/v1
@@ -33,3 +33,4 @@ services:
 volumes:
   open-webui-data:
     name: open-webui-data
+
