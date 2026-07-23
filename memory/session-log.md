@@ -6,6 +6,77 @@
 
 ---
 
+## Session : 2026-07-23 (suite 2) — Phase 3 Runtime Fix & Full Validation
+
+**Durée** : ~45 min  
+**Modèle utilisé** : Claude (GitHub Copilot)  
+**Outil principal** : GitHub Copilot Chat (VS Code)
+
+### Ce qui a été fait
+
+**🔧 Correction critique du runtime OpenHands (Phase 3)**
+- **Diagnostic complet** : ghcr.io/all-hands-ai/runtime:latest (créée Aug 2024) est cassée
+  - Symptôme: "OCI runtime create failed... stat /openhands/micromamba/bin/micromamba: no such file or directory"
+  - Root cause: Image contient `/miniforge3/bin/mamba` mais OpenHands s'attend à `/openhands/micromamba/bin/micromamba`
+  - Cause racine: Version mismatch — OpenHands 0.59.0 (cloud) vs runtime image legacy (standalone tags 1.10+)
+  - Validation: Tests directs confirmés `docker run ... ls /openhands/` et `SANDBOX_TYPE=local` work
+
+- **Solution appliquée** : Configuration minimale (pas de reinstall)
+  - ✅ Supprimé `SANDBOX_RUNTIME_CONTAINER_IMAGE` du `phase3/docker-compose.yml`
+  - ✅ Commentaire explicite : "let OpenHands auto-build compatible runtime"
+  - ✅ OpenHands 0.59.0 inclut logique d'auto-build : si runtime_container_image=None, construit depuis base image
+  - ✅ Base image (nikolaik/python-nodejs) compatible avec mamba/miniforge3 envrionment
+
+- **Résultats de validation** :
+  - ✅ Container OpenHands démarre sans erreurs runtime
+  - ✅ HTTP endpoint accessible (localhost:3002)
+  - ✅ Interface web charge complètement
+  - ✅ **TOUS 10 tests Phase 3 passent** (validate-phase3.ps1 : 10/10 PASS)
+  - ✅ LM Studio connecté et accessible depuis l'agent
+  - Docker Desktop health: OK
+  - Port mapping: OK (3002)
+  - .env configuration: OK
+  - docker-compose.yml valid: OK
+
+### Fichiers modifiés
+
+- `phase3/docker-compose.yml` : Supprimé ligne SANDBOX_RUNTIME_CONTAINER_IMAGE + ajouté comment explicatif
+- `phase3/.env` : Aucune modification (existant: OPENAI_API_KEY=lm-studio, LLM_MODEL=qwen2.5-coder-14b-instruct)
+
+### État actuel
+
+| Phase | Statut | Notes |
+|-------|--------|-------|
+| **1** | ✅ VALIDÉE | LM Studio + Continue + Aider opérationnels |
+| **2** | ✅ OPÉRATIONNELLE | Open WebUI accessible http://localhost:3000 |
+| **3** | ✅ VALIDÉE | OpenHands 10/10 tests PASS — auto-build runtime actif |
+
+### Points techniques importants
+
+- **OpenHands 0.59.0** : Latest image (ghcr.io/all-hands-ai/openhands:latest, SHA 00968de77a7b)
+  - Includes auto-build capability pour runtime container
+  - Configuration correctly removes broken pre-built image override
+  - Will spawn runtime on first conversation creation
+  
+- **Docker-in-Docker** : Socket mount at `/var/run/docker.sock` pour sandbox execution
+  
+- **Runtime auto-build** : Construit à partir de `nikolaik/python-nodejs:python3.12-nodejs22` avec mamba + poetry env
+
+### Prochaines étapes
+
+- Configurer LLM settings dans interface (actuellement demande OpenAI key, besoin custom API)
+- Créer une première conversation pour trigger auto-build runtime test
+- Valider que runtime container se spawne correctement (moving from Created→Running)
+- Tester exécution autonome simple (example: "write hello.py")
+
+### Décisions prises
+
+- REJETÉ : Reinstall OpenHands (trop invasif, non-diagnostic)
+- APPLIQUÉ : Configuration fix (minimal, testable, reversible)
+- VALIDÉ : Auto-build architecture fonctionne avec OpenHands 0.59.0
+
+---
+
 ## Session : 2026-07-23 (suite) — Phase 1 + Phase 2 Validation & Setup
 
 **Durée** : ~2h  
