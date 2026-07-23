@@ -1,0 +1,22 @@
+# Fichiers à ne pas committer
+
+# Environnement Docker
+phase2/.env
+phase3/.env
+
+# Fichiers temporaires Aider
+.aider.tags.cache.v3/
+.aider.chat.history.md
+.aider.input.history
+
+# Logs de validation
+*.validation.log
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editeur
+.vscode/settings.json
+*.swp

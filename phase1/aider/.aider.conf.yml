@@ -1,0 +1,53 @@
+# Aider configuration — MealLoop AI Local
+# Copier ce fichier à la racine du repo MealLoop : MealLoop/.aider.conf.yml
+#
+# IMPORTANT : Remplacer REMPLACER_PAR_ID_MODELE_LMSTUDIO par l'ID exact du modèle
+# Commande pour trouver l'ID :
+#   Invoke-RestMethod http://localhost:1234/v1/models | ConvertTo-Json
+# Exemple : qwen2.5-coder-14b-instruct
+# Format attendu : openai/<model-id>
+
+# === Modèle LLM ===
+# Modèle principal pour le chat et les patches
+model: openai/REMPLACER_PAR_ID_MODELE_LMSTUDIO
+
+# Modèle pour les tâches légères (résumés, commit messages)
+# Décommenter si tu as le 7B chargé en parallèle (peu probable avec 16 Go VRAM)
+# weak-model: openai/REMPLACER_PAR_ID_MODELE_7B
+
+# === Connexion LM Studio ===
+openai-api-base: http://localhost:1234/v1
+openai-api-key: lm-studio
+
+# === Git ===
+# Aider commit automatiquement ses changements après acceptation
+auto-commits: true
+
+# Format des commits Aider (conventional commits)
+# Laisser Aider générer le message ou le forcer
+# commit-prompt: "feat: {message}"
+
+# === Comportement ===
+# Ne pas ajouter les fichiers de code automatiquement sans confirmation
+auto-test: false
+
+# Afficher les diffs colorisés
+pretty: true
+
+# Streaming des réponses (meilleure UX)
+stream: true
+
+# Ne pas écrire de fichier d'historique de chat dans le repo
+# (gardé en local uniquement)
+chat-history-file: .aider.chat.history.md
+
+# === Contexte ===
+# Fichiers lus en mode lecture seule à chaque session (contexte MealLoop)
+# Décommenter après avoir rempli les templates mémoire
+# read:
+#   - memory/project-context.md
+#   - memory/conventions.md
+
+# === Limitations recommandées (VRAM 16 Go) ===
+# Ne pas dépasser 8192 tokens de contexte pour garder de la fluidité
+# map-tokens: 2048

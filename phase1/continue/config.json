@@ -1,0 +1,100 @@
+{
+  "_comment": "Configuration Continue pour LM Studio — MealLoop AI Local",
+  "_instructions": [
+    "1. Copier ce fichier vers %USERPROFILE%\\.continue\\config.json",
+    "2. Remplacer REMPLACER_PAR_ID_MODELE_LMSTUDIO par l'ID exact retourné par l'API LM Studio",
+    "3. Commande pour trouver l'ID : Invoke-RestMethod http://localhost:1234/v1/models | ConvertTo-Json",
+    "4. Exemple d'ID : qwen2.5-coder-14b-instruct"
+  ],
+
+  "models": [
+    {
+      "title": "Qwen Coder 14B (Main)",
+      "provider": "openai",
+      "model": "REMPLACER_PAR_ID_MODELE_LMSTUDIO",
+      "apiBase": "http://localhost:1234/v1",
+      "apiKey": "lm-studio"
+    },
+    {
+      "title": "Qwen Coder 7B (Fast)",
+      "provider": "openai",
+      "model": "REMPLACER_PAR_ID_MODELE_7B_LMSTUDIO",
+      "apiBase": "http://localhost:1234/v1",
+      "apiKey": "lm-studio"
+    }
+  ],
+
+  "tabAutocompleteModel": {
+    "title": "Qwen Coder 7B (Autocomplete)",
+    "provider": "openai",
+    "model": "REMPLACER_PAR_ID_MODELE_7B_LMSTUDIO",
+    "apiBase": "http://localhost:1234/v1",
+    "apiKey": "lm-studio"
+  },
+
+  "contextProviders": [
+    {
+      "name": "code",
+      "params": {}
+    },
+    {
+      "name": "docs",
+      "params": {}
+    },
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {}
+    },
+    {
+      "name": "problems",
+      "params": {}
+    },
+    {
+      "name": "folder",
+      "params": {}
+    },
+    {
+      "name": "codebase",
+      "params": {}
+    }
+  ],
+
+  "slashCommands": [
+    {
+      "name": "edit",
+      "description": "Edit highlighted code"
+    },
+    {
+      "name": "comment",
+      "description": "Write comments for highlighted code"
+    },
+    {
+      "name": "share",
+      "description": "Export chat session to markdown"
+    }
+  ],
+
+  "customCommands": [
+    {
+      "name": "mealloop-context",
+      "prompt": "Read the file memory/project-context.md and use it as context for all subsequent responses. Confirm you have read it.",
+      "description": "Load MealLoop project context into chat"
+    },
+    {
+      "name": "review",
+      "prompt": "Review the selected code for correctness, performance issues, and alignment with Flutter/Dart best practices. Be concise.",
+      "description": "Quick code review"
+    },
+    {
+      "name": "explain",
+      "prompt": "Explain this code clearly, focusing on what it does and any non-obvious logic.",
+      "description": "Explain selected code"
+    }
+  ],
+
+  "allowAnonymousTelemetry": false
+}
