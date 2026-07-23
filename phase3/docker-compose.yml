@@ -1,34 +1,31 @@
 services:
   openhands:
+    # Use latest but with explicit runtime configuration
     image: ghcr.io/all-hands-ai/openhands:latest
     container_name: openhands
     ports:
       # Port 3002 (Phase 2 Open WebUI est sur 3001)
       - "3002:3000"
     environment:
-      # Connexion LM Studio depuis Docker
+      # LM Studio Backend
       - LLM_BASE_URL=http://host.docker.internal:1234/v1
       - LLM_API_KEY=${OPENAI_API_KEY}
       - LLM_MODEL=${LLM_MODEL}
-      # Sandbox Docker-in-Docker
-      - SANDBOX_RUNTIME_CONTAINER_IMAGE=ghcr.io/all-hands-ai/runtime:latest
+      # Sandbox Docker-in-Docker - let OpenHands build runtime automatically
+      # (removed SANDBOX_RUNTIME_CONTAINER_IMAGE - OpenHands 0.59.0 auto-builds from base image)
       - SANDBOX_USER_ID=1000
-      # Répertoire de travail persistant
+      # Workspace pour les résultats
       - WORKSPACE_BASE=/opt/workspace
     volumes:
-      # Accès au daemon Docker pour le sandbox
+      # Docker socket pour runtime sandbox
       - /var/run/docker.sock:/var/run/docker.sock
       # Configuration OpenHands (JWT secret, config) - bind mount local
       - ./openhands-data:/.openhands
-      # Workspace persistant (optionnel : monter votre repo projet)
-      - openhands-workspace:/opt/workspace
+      # Workspace persistant - monter un répertoire local pour les résultats
+      - ./openhands-workspace:/opt/workspace
     extra_hosts:
       # Résolution DNS pour atteindre localhost de Windows depuis Docker
       - "host.docker.internal:host-gateway"
     restart: unless-stopped
-
-volumes:
-  openhands-workspace:
-    name: openhands-workspace
 
 
