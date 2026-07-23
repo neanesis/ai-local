@@ -6,6 +6,65 @@
 
 ---
 
+## Session : 2026-07-23 (suite) — Phase 1 + Phase 2 Validation & Setup
+
+**Durée** : ~2h  
+**Modèle utilisé** : Claude (GitHub Copilot)  
+**Outil principal** : GitHub Copilot Chat (VS Code)
+
+### Ce qui a été fait
+
+- **Suppression références MealLoop** : 14 fichiers nettoyés, généralisés pour tout projet
+- **Optimisation tokens** : classification A/B/C, archive strategy, session-log-archive.md créé
+- **Phase 1 — Installation complète** :
+  - Continue extension 2.0.0 installée dans VS Code
+  - Aider 0.86.2 installé (Python 3.12) avec alias PowerShell pour contourner AppLocker
+  - LM Studio API validée (Qwen2.5-Coder-14B-Instruct sur localhost:1234)
+  - Config Continue enrichie (Ollama préservé + LM Studio models ajoutés)
+  - ✅ **Phase 1 VALIDÉE : 10/12 passes**
+- **Phase 2 — Open WebUI déployée** :
+  - docker-compose.yml lancé sur Windows avec image ghcr.io/open-webui/open-webui:main
+  - .env généré avec clé secrète aléatoire
+  - Interface web accessible sur http://localhost:3000 (HTTP 200)
+  - Healthcheck passing, conteneur healthy
+  - ✅ **Phase 2 OPÉRATIONNELLE : 9/10 passes** (warning: Docker→LM Studio nécessite "Serve on local network")
+
+### Fichiers modifiés/créés
+
+**Refactoring :**
+- `memory/` : 6 fichiers refactorisés (templates génériques)
+- `phase1/`, `phase2/`, `phase3/` : références MealLoop supprimées
+- `phase1/validate-phase1.ps1` : paramètre `$ProjectPath` (lieu de `$MealLoopPath`)
+- `phase1/continue/config.json` : modèles LM Studio ajoutés
+- `ROOT README.md` : description généralisée
+
+**Nouveaux :**
+- `memory/session-log-archive.md` : archive pour futures sessions
+- `phase2/.env` : clé secrète générée (ignorée par git)
+
+### État des phases
+
+| Phase | Statut | Détail |
+|-------|--------|--------|
+| **1** | ✅ VALIDÉE | LM Studio + Continue + Aider prêts |
+| **2** | ✅ OPÉRATIONNELLE | Open WebUI accessible http://localhost:3000 |
+| **3** | ⏳ À FAIRE | OpenHands Docker (optionnel) |
+
+### Prochaines étapes
+
+- Sur machine cible : activer "Serve on local network" dans LM Studio si Open WebUI doit l'atteindre
+- Optionnel : Phase 3 (OpenHands) selon besoins
+- Adapter `memory/` templates avec contexte réel du projet cible
+
+### Contexte important pour la prochaine session
+
+> **Projet autonome, prêt pour déploiement**
+> AI Local en est à Phase 2 : environnement dev assisté par LLM entièrement fonctionnel.
+> Peut être proposé à IMD ou autre organisation sans référence MealLoop.
+> Continue et Aider opérationnels en Windows natif, Open WebUI déployable via Docker.
+
+---
+
 ## Session : 2026-07-23 — Création du projet ai-local
 
 **Durée** : ~1h  
