@@ -4,11 +4,14 @@
 
 ## Identité du projet
 
+> NOTE : Ce fichier est un TEMPLATE à copier dans le repo MealLoop et à remplir.
+> Le repo `ai-local` lui-même est l'environnement AI local (voir session-log.md).
+
 **Nom** : MealLoop  
 **Type** : Application mobile de planification de repas  
 **Plateforme** : Flutter (iOS + Android)  
 **Backend** : Supabase  
-**Développeur** : Solo developer  
+**Développeur** : Solo developer (neanesis)  
 
 ## Stack technique
 
