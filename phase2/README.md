@@ -20,6 +20,25 @@ Ajouter une interface web locale pour :
 
 ## Étape 1 — Préparer l'environnement
 
+### 1.0 Gestion des conflits de port (si vous avez d'autres services sur localhost:3000)
+
+Si vous avez d'autres services Docker/Windows utilisant le port 3000, utilisez le script de port dynamique :
+
+```powershell
+cd phase2
+
+# Trouver le premier port disponible et redémarrer Open WebUI
+.\find-available-port.ps1 -StartPort 3000 -Range 10
+```
+
+Ce script :
+- Teste les ports 3000-3009 pour trouver le premier disponible
+- Met à jour `docker-compose.yml` automatiquement
+- Redémarre Open WebUI sur le port trouvé
+- Affiche l'URL d'accès
+
+**Exemple** : si port 3000 est occupé, il utilisera 3001 et affichera `http://localhost:3001`
+
 ### 1.1 Créer le fichier .env
 
 ```powershell
