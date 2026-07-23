@@ -7,10 +7,12 @@ services:
       # Port 3002 (Phase 2 Open WebUI est sur 3001)
       - "3002:3000"
     environment:
-      # LM Studio Backend
+      # LM Studio Backend (OpenAI-compatible API)
       - LLM_BASE_URL=http://host.docker.internal:1234/v1
       - LLM_API_KEY=${OPENAI_API_KEY}
       - LLM_MODEL=${LLM_MODEL}
+      # LLM Provider configuration (skip UI onboarding)
+      - LLM_PROVIDER=openai
       # Sandbox Docker-in-Docker - let OpenHands build runtime automatically
       # (removed SANDBOX_RUNTIME_CONTAINER_IMAGE - OpenHands 0.59.0 auto-builds from base image)
       - SANDBOX_USER_ID=1000
