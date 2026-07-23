@@ -18,6 +18,8 @@ services:
     volumes:
       # Accès au daemon Docker pour le sandbox
       - /var/run/docker.sock:/var/run/docker.sock
+      # Configuration OpenHands (JWT secret, config) - bind mount local
+      - ./openhands-data:/.openhands
       # Workspace persistant (optionnel : monter votre repo projet)
       - openhands-workspace:/opt/workspace
     extra_hosts:

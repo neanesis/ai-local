@@ -20,3 +20,6 @@ desktop.ini
 # Editeur
 .vscode/settings.json
 *.swp
+
+phase3/openhands-data/
+phase3/.env
