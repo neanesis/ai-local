@@ -1,4 +1,4 @@
-# MealLoop AI Local — Remplacement local de Claude Code
+# AI Local — Remplacement local de Claude Code
 
 ## Objectif
 
